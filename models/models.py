@@ -7,11 +7,11 @@ from sqlalchemy.orm import relationship
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
+    title = Column(String, nullable=True)
     body = Column(String, nullable=True)
-    order_address = Column(String)
+    order_address = Column(String, nullable=True)
     information = Column(JSON, nullable=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     creator = relationship("User", back_populates="orders")
     # addresses = relationship("Orders", back_populates="creator")
 
@@ -22,8 +22,8 @@ class User(Base):
     name = Column(String)
     email = Column(String, unique=True)
     password = Column(String)
-    address = Column(String)
-    orders = relationship("Orders", back_populates="creator")
+    address = Column(String, nullable=True)
+    orders = relationship("Order", back_populates="creator")
 
 
 # ou can query column properties of mapped classes and the Query class has a generative distinct() method:
