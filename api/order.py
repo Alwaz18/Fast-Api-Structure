@@ -28,7 +28,7 @@ def destroy(id: int, db: Session):
     return {'done'}
 
 
-def update(id: int, request: schemas.order, db: Session):
+def update(id: int, request: schemas.Order, db: Session):
     order = db.query(models.Order).filter(models.Order.id == id)
     if not order.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
